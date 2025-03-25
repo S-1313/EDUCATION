@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Video</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex bg-gray-800 text-white">
+    <div class="w-72 bg-gray-900 p-5 h-screen overflow-y-auto shadow-lg">
+        <h3 class="text-lg font-semibold text-center border-b pb-3 border-gray-700">Course Progress</h3>
+        <div id="videoList" class="mt-4"></div>
+    </div>
+    <div class="flex-1 flex justify-center items-center p-5">
+        <iframe width="960" height="615" src="https://www.youtube.com/embed/fd0L1IousZU?si=8w7GH90uyrWLv59u" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <script>
+        const videos = [
+            { title: "Introduction", id: "dQw4w9WgXcQ" },
+            { title: "Lesson 1", id: "3JZ_D3ELwOQ" },
+            { title: "Lesson 2", id: "tgbNymZ7vqY" }
+        ];
+        
+        const videoList = document.getElementById("videoList");
+        const videoFrame = document.getElementById("videoFrame");
+        
+        function loadProgress() {
+            return JSON.parse(localStorage.getItem("videoProgress")) || {};
+        }
+        
+        function saveProgress(progress) {
+            localStorage.setItem("videoProgress", JSON.stringify(progress));
+        }
+        
+        function updateVideo(id) {
+            videoFrame.src = `https://www.youtube.com/embed/${id}?enablejsapi=1`;
+            videoFrame.setAttribute("data-current-video", id);
+        }
+        
+        function markVideoComplete(id) {
+            const progress = loadProgress();
+            progress[id] = true;
+            saveProgress(progress);
+            renderVideoList();
+        }
+        
+        function renderVideoList() {
+            const progress = loadProgress();
+            videoList.innerHTML = "";
+            videos.forEach(video => {
+                const div = document.createElement("div");
+                div.className = "flex items-center p-3 rounded-lg cursor-pointer transition hover:bg-gray-700";
+                div.innerHTML = `
+                    <input type="checkbox" class="mr-3" ${progress[video.id] ? "checked" : ""}>
+                    <span class="flex-1">${video.title}</span>
+                `;
+                div.addEventListener("click", () => updateVideo(video.id));
+                div.querySelector("input").addEventListener("change", (e) => {
+                    progress[video.id] = e.target.checked;
+                    saveProgress(progress);
+                });
+                videoList.appendChild(div);
+            });
+        }
+        
+        function onYouTubeIframeAPIReady() {
+            let player = new YT.Player('videoFrame', {
+                events: {
+                    'onStateChange': (event) => {
+                        if (event.data === YT.PlayerState.ENDED) {
+                            let currentVideo = videoFrame.getAttribute("data-current-video");
+                            if (currentVideo) markVideoComplete(currentVideo);
+                        }
+                    }
+                }
+            });
+        }
+        
+        let tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        let firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        
+        renderVideoList();
+    </script>
+</body>
+</html>

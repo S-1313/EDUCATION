@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Video</title>
+    <style>
+        body {
+            display: flex;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background: rgb(55,65,81);
+
+        }
+        .sidebar {
+            width: 300px;
+            background: rgb(31, 41, 55);
+            color: #fff;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar h3 {
+            margin-top: 0;
+            text-align: center;
+            font-size: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #495057;
+        }
+        .video-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        iframe {
+            width: 80%;
+            height: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .video-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .video-item:hover {
+            background: #495057;
+        }
+        .video-item input {
+            margin-right: 10px;
+        }
+        .video-item span {
+            flex: 1;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h3>Course Progress</h3>
+        <div id="videoList"></div>
+    </div>
+    <div class="video-container">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/-ETQ97mXXF0?si=pXn-XnNTd8wFqHfV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <script>
+        const videos = [
+            { title: "Introduction", id: "dQw4w9WgXcQ" },
+            { title: "Lesson 1", id: "3JZ_D3ELwOQ" },
+            { title: "Lesson 2", id: "tgbNymZ7vqY" }
+        ];
+        
+        const videoList = document.getElementById("videoList");
+        const videoFrame = document.getElementById("videoFrame");
+        
+        function loadProgress() {
+            return JSON.parse(localStorage.getItem("videoProgress")) || {};
+        }
+        
+        function saveProgress(progress) {
+            localStorage.setItem("videoProgress", JSON.stringify(progress));
+        }
+        
+        function updateVideo(id) {
+            videoFrame.src = `https://www.youtube.com/embed/${id}?enablejsapi=1`;
+            videoFrame.setAttribute("data-current-video", id);
+        }
+        
+        function markVideoComplete(id) {
+            const progress = loadProgress();
+            progress[id] = true;
+            saveProgress(progress);
+            renderVideoList();
+        }
+        
+        function renderVideoList() {
+            const progress = loadProgress();
+            videoList.innerHTML = "";
+            videos.forEach(video => {
+                const div = document.createElement("div");
+                div.className = "video-item";
+                div.innerHTML = `
+                    <input type="checkbox" ${progress[video.id] ? "checked" : ""}>
+                    <span>${video.title}</span>
+                `;
+                div.addEventListener("click", () => updateVideo(video.id));
+                div.querySelector("input").addEventListener("change", (e) => {
+                    progress[video.id] = e.target.checked;
+                    saveProgress(progress);
+                });
+                videoList.appendChild(div);
+            });
+        }
+        
+        function onYouTubeIframeAPIReady() {
+            let player = new YT.Player('videoFrame', {
+                events: {
+                    'onStateChange': (event) => {
+                        if (event.data === YT.PlayerState.ENDED) {
+                            let currentVideo = videoFrame.getAttribute("data-current-video");
+                            if (currentVideo) markVideoComplete(currentVideo);
+                        }
+                    }
+                }
+            });
+        }
+        
+        let tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        let firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        
+        renderVideoList();
+    </script>
+</body>
+</html>

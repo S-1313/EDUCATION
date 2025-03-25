@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Learning Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-700 transition-colors duration-300">
+    <nav class="flex justify-between items-center bg-gray-800 p-4 text-white">
+        <div class="logo">Eduverse</div>
+        <ul class="flex space-x-5">
+            <li><a href="#" class="hover:text-green-500">Home</a></li>
+            <li><a href="#" class="hover:text-green-500">Courses</a></li>
+            <li><a href="#" class="hover:text-green-500">About</a></li>
+            <li><a href="#" class="hover:text-green-500">Contact</a></li>
+        </ul>
+        <button id="darkModeToggle" class="text-xl">🌙</button>
+    </nav>
+    
+    <section class="text-center py-10">
+        <h1 class="text-4xl font-semibold mb-6 text-gray-900 dark:text-gray-100">Explore Our Courses</h1>
+        <div class="flex flex-wrap justify-center gap-20">
+            <div class="bg-white p-6 rounded-xl shadow-lg max-w-xs text-center transition-all transform hover:scale-105 hover:shadow-2xl dark:bg-gray-800 dark:text-white">
+                <img src="./images/image.png" alt="Course Image" class="w-full rounded-lg mb-4">
+                <h2 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Web Development</h2>
+                <p class="text-gray-700 mb-4 dark:text-gray-300">Learn HTML, CSS, and JavaScript from scratch.</p>
+                <button onclick="window.location.href='MainCourse.html';"  class="bg-green-500 text-white py-2 px-4 rounded-md transition-all transform hover:bg-green-600 hover:translate-y-1">Enroll Now</button>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-lg max-w-xs text-center transition-all transform hover:scale-105 hover:shadow-2xl dark:bg-gray-800 dark:text-white">
+                <img src="./images/DataSci.png" alt="Course Image" class="w-full rounded-lg mb-4">
+                <h2 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Data Science</h2>
+                <p class="text-gray-700 mb-4 dark:text-gray-300">Master Python, Machine Learning, and AI.</p>
+                <button onclick="window.location.href='MainCourse3.html';" class="bg-green-500 text-white py-2 px-4 rounded-md transition-all transform hover:bg-green-600 hover:translate-y-1">Enroll Now</button>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-lg max-w-xs text-center transition-all transform hover:scale-105 hover:shadow-2xl dark:bg-gray-800 dark:text-white">
+                <img src="./images/Cyber.png" alt="Course Image" class="w-full rounded-lg mb-4">
+                <h2 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Cyber Security</h2>
+                <p class="text-gray-700 mb-4 dark:text-gray-300">Learn ethical hacking and penetration testing.</p>
+                <button onclick="window.location.href='MainCourse2.html';" class="bg-green-500 text-white py-2 px-4 rounded-md transition-all transform hover:bg-green-600 hover:translate-y-1">Enroll Now</button>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-lg max-w-xs text-center transition-all transform hover:scale-105 hover:shadow-2xl dark:bg-gray-800 dark:text-white">
+                <img src="./images/Cyber.png" alt="Course Image" class="w-full rounded-lg mb-4">
+                <h2 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">coming soon...</h2>
+                <p class="text-gray-700 mb-4 dark:text-gray-300">coming soon....</p>
+                <button onclick="window.location.href='MainCourse2.html';" class="bg-green-500 text-white py-2 px-4 rounded-md transition-all transform hover:bg-green-600 hover:translate-y-1">Enroll Now</button>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-lg max-w-xs text-center transition-all transform hover:scale-105 hover:shadow-2xl dark:bg-gray-800 dark:text-white">
+                <img src="./images/Cyber.png" alt="Course Image" class="w-full rounded-lg mb-4">
+                <h2 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">coming soon...</h2>
+                <p class="text-gray-700 mb-4 dark:text-gray-300">coming soon....</p>
+                <button onclick="window.location.href='MainCourse2.html';" class="bg-green-500 text-white py-2 px-4 rounded-md transition-all transform hover:bg-green-600 hover:translate-y-1">Enroll Now</button>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-lg max-w-xs text-center transition-all transform hover:scale-105 hover:shadow-2xl dark:bg-gray-800 dark:text-white">
+                <img src="./images/Cyber.png" alt="Course Image" class="w-full rounded-lg mb-4">
+                <h2 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">coming soon...</h2>
+                <p class="text-gray-700 mb-4 dark:text-gray-300">coming soon....</p>
+                <button onclick="window.location.href='MainCourse2.html';" class="bg-green-500 text-white py-2 px-4 rounded-md transition-all transform hover:bg-green-600 hover:translate-y-1">Enroll Now</button>
+            </div>
+        </div>
+        
+        <p class="mt-10 text-lg text-gray-100">More courses are coming soon...</p>
+    </section>
+    
+    <script>
+        // Toggle Dark Mode
+        document.getElementById("darkModeToggle").addEventListener("click", function() {
+            document.body.classList.toggle("bg-gray-900");
+            document.body.classList.toggle("text-white");
+            document.querySelector(".navbar").classList.toggle("bg-gray-700");
+            document.querySelectorAll(".nav-links a").forEach(a => {
+                a.classList.toggle("text-gray-300");
+            });
+            document.querySelectorAll(".card").forEach(card => {
+                card.classList.toggle("bg-gray-800");
+                card.classList.toggle("text-white");
+            });
+            document.querySelectorAll(".card button").forEach(button => {
+                button.classList.toggle("bg-green-600");
+            });
+        });
+    </script>
+</body>
+</html>

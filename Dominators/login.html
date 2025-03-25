@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auth Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex justify-center items-center min-h-screen bg-gray-900 bg-cover bg-center" style="background-image: url('backdrop.jpg');">
+  <div class="w-full max-w-md bg-white bg-opacity-20 backdrop-blur-md p-8 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105">
+    <div id="auth-container">
+      <!-- Login Form -->
+      <div id="login" class="auth-form active">
+        <h2 class="text-center text-2xl font-semibold mb-6 text-black">Login</h2>
+        <form id="login-form" class="space-y-4">
+          <div>
+            <label for="login-email" class="block text-sm font-medium text-black-200 mb-1">Email</label>
+            <input type="email" id="login-email" placeholder="Enter your email" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 placeholder-gray-400">
+          </div>
+
+          <div>
+            <label for="login-password" class="block text-sm font-medium text-black-200 mb-1">Password</label>
+            <input type="password" id="login-password" placeholder="Enter your password" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 placeholder-gray-400">
+          </div>
+
+          <button type="submit" class="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition-colors">Login</button>
+          <p class="text-center mt-4 text-sm text-black">Don't have an account? 
+            <a href="#" id="switch-to-signup" class="text-blue-500 hover:underline">Sign up</a>
+          </p>
+        </form>
+      </div>
+
+      <!-- Signup Form -->
+      <div id="signup" class="auth-form hidden">
+        <h2 class="text-center text-2xl font-semibold mb-6 text-black">Signup</h2>
+        <form id="signup-form" class="space-y-4">
+          <div>
+            <label for="signup-email" class="block text-sm font-medium text-black-200 mb-1">Email</label>
+            <input type="email" id="signup-email" placeholder="Enter your email" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 placeholder-gray-400">
+          </div>
+
+          <div>
+            <label for="signup-password" class="block text-sm font-medium text-black-200 mb-1">Password</label>
+            <input type="password" id="signup-password" placeholder="Create a password" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 placeholder-gray-400">
+          </div>
+
+          <button type="submit" class="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition-colors">Sign up</button>
+          <p class="text-center mt-4 text-sm text-black">Already have an account? 
+            <a href="#" id="switch-to-login" class="text-blue-500 hover:underline">Login</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include the JavaScript -->
+  <script src="login.js"></script>
+</body>
+</html>
